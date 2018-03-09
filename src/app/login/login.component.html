@@ -25,24 +25,28 @@
 
             <div class="control" align="center">
                 <div class="label" align="center">QR CODE</div>
-                <input type="password" class="form-control" />
+                <input type="text" class="form-control" value="{{qrResult}}" disabled/>
             </div>
             <div align="center">
-                <button class="btn btn-orange" (click)="goToRecord()">Scan</button>
+                <button class="btn btn-orange" (click)="qr()">Scan</button>
             </div>
 
-            <ngx-smart-modal #myModal [identifier]="myModal">
-                <ngx-zxing [start]="camSarted" [device]="selectedDevice" [cssClass]="small-video" (camerasFound)="displayCameras($event)"
-                    (scanSuccess)="handleQrCodeResult($event)">
+            <ngx-smart-modal #myModal [identifier]="'myModal'" style="width: 100%">
+              
+                <ngx-zxing [start]="camStarted" [device]="selectedDevice" [cssClass]="'small-video'" (onCamsFound)="displayCameras($event)"
+                    (onScan)="handleQrCodeResult($event)">
                 </ngx-zxing>
+            
 
-                <div align="center">
-                    <button class="btn btn-orange" (click)="myModal.close()">
-                        Close
-                    </button>
-                    <ngx-qrcode [qrc-element-type]="elementType" [qrc-value]="value">
-                    </ngx-qrcode>
-                </div>
+                    <div align="center">
+                        <button class="btn btn-orange" (click)="closeCam()">Close</button>
+
+
+                        <ngx-qrcode [qrc-element-type]="elementType" [qrc-value]="value">
+                        </ngx-qrcode>
+                      
+                    </div>
+               
             </ngx-smart-modal>
 
         </div>
